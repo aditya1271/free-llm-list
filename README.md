@@ -31,7 +31,8 @@ Tested but **not** a recurring free tier (kept for reference):
 
 | Provider | What you actually get | Base URL |
 |---|---|---|
-| [SiliconFlow (international)](#siliconflow-international--one-time-credit-only) | One-time ~$1 signup credit; every model is paid | `https://api.siliconflow.com/v1` |
+| [SiliconFlow (international)](#siliconflow-international-one-time-credit-only) | One-time ~$1 signup credit; every model is paid | `https://api.siliconflow.com/v1` |
+| [SiliconFlow (China)](#siliconflow-international-one-time-credit-only) | ~10 permanently free small models, but needs Chinese real-name ID verification | `https://api.siliconflow.cn/v1` |
 
 ## Quick start
 
@@ -281,7 +282,14 @@ source keys.env.csh
 
 Not a recurring free tier. The international site lists every model as paid and gives about **$1 of credit once**.
 In testing, three tiny requests worked, then every model returned HTTP 402 *"account balance is insufficient"*.
-The China site (`cloud.siliconflow.cn`, +86 phone required) is the one known for permanently free small models.
+
+The **China site** (`cloud.siliconflow.cn`, base URL `https://api.siliconflow.cn/v1`) does have permanently free
+small models (price 0 on <https://siliconflow.cn/pricing>, Oct 2026): `Qwen/Qwen3-8B`, `Qwen/Qwen3.5-4B`,
+`Qwen/Qwen2.5-7B-Instruct`, `THUDM/GLM-4-9B-0414`, `THUDM/GLM-Z1-9B-0414`, `deepseek-ai/DeepSeek-R1-0528-Qwen3-8B`,
+`tencent/Hunyuan-MT-7B`, `XingChenAGI/Xing4.0-29B`, plus free embedding/rerank (`BAAI/bge-m3`, `bge-reranker-v2-m3`).
+The catch: since 15 May 2026 the China site requires **real-name verification** (实名认证) before any API call:
+a +86 phone, a Chinese ID document and a face check. Most people outside China can't complete it. Verified accounts
+also get a one-time ¥16 voucher (valid 180 days).
 
 **Get a key**
 1. Sign up at <https://cloud.siliconflow.com>, then *Account → API Keys* → create a key (`sk-...`).
