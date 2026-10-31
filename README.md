@@ -3,7 +3,8 @@
 LLM providers that give a **free API key with a recurring quota** (daily, hourly or monthly reset),
 **no credit card**. Every provider below was signed up for and **tested with a real request on
 31 Oct 2026** (`test_keys.py`). Z.ai and SambaNova pass on some runs and return a temporary 429
-("overloaded" / "high demand") on others. Limits change often; check the provider's console before you depend on one.
+("overloaded" / "high demand") on others. Token Harbor is listed but not yet confirmed (the key needs
+email verification first). Limits change often; check the provider's console before you depend on one.
 
 All of them speak the **OpenAI chat-completions API**: change `base_url`, key and model, nothing else.
 
@@ -25,6 +26,13 @@ All of them speak the **OpenAI chat-completions API**: change `base_url`, key an
 | [Kilo Gateway](#kilo-gateway) | 200 req/hour per IP on free models | `https://api.kilo.ai/api/gateway` | `kilo-auto/free` | `kilo-auto/free` picks a free model |
 | [Pollinations](#pollinations) | Daily "pollen" credit grant | `https://gen.pollinations.ai/v1` | `openai/gpt-5.4-nano` | Models are priced in pollen |
 | [LLM.Kiwi](#llmkiwi) | Small hourly limit (header showed 20) | `https://api.llm.kiwi/v1` | `auto` | 5 models |
+| [AIHubMix](#aihubmix) | Per free model: 100–500 req/day, 1M tokens/day, 5 RPM | `https://aihubmix.com/v1` | `coding-glm-5.3-free` | ~40 free models: GLM-5.x, Kimi K3, MiniMax M3, MiMo |
+| [Routeway](#routeway) | 200 req/day on `:free` models | `https://api.routeway.ai/v1` | `muse-glimmer-30b:free` | Free list rotates |
+| [Agnes AI](#agnes-ai) | Flash models at $0 (promotion), RPM shown in console | `https://apihub.agnes-ai.com/v1` | `agnes-3.0-flash` | May train on data |
+| [OpenTyphoon](#opentyphoon) | 200 req/min, no daily cap | `https://api.opentyphoon.ai/v1` | `typhoon-v2.5-30b-a3b-instruct` | Thai-tuned Qwen3-30B; English works too |
+| [SEA-LION](#sea-lion) | 10 req/min, no daily cap | `https://api.sea-lion.ai/v1` | `aisingapore/Qwen-SEA-LION-v4.5-27B-IT` | For prototyping |
+| [LLMTR](#llmtr) | Daily allowance per free model | `https://llmtr.com/v1` | `qwen/qwen3.8-27b-free` | Turkish gateway; dated free previews |
+| [Token Harbor](#token-harbor) | Rolling 7-day allowance on `:free` models | `https://tokenharbor.ai/v1` | `deepseek-v4.1-flash:free` | Verify email and enable free routes first (untested) |
 
 
 Tested but **not** a recurring free tier (kept for reference):
@@ -278,6 +286,103 @@ source keys.env.csh
 - Models: `auto`, `minimax-m3`, `minimax-m2.5`, `nemotron-3-ultra`, `nemotron-3-super`
 - Small limit: check the `X-Ratelimit-*` response headers.
 
+### AIHubMix
+
+**Get a key**
+1. Sign up at <https://aihubmix.com> (email or Google/GitHub).
+2. <https://console.aihubmix.com/workspaces/default/keys> → create a key (`sk-...`).
+
+**Use it**
+- Env: `AIHUBMIX_API_KEY`
+- Base URL: `https://aihubmix.com/v1` (Anthropic-format base for Claude Code: `https://aihubmix.com`)
+- Only IDs ending in `-free` or `:free` are free. Examples: `coding-glm-5.3-free`, `coding-kimi-k3-free`,
+  `coding-minimax-m3-free`, `xiaomi-mimo-v2.6-pro-free`, `coding-glm-5.3-flash-free`, `glm-4.7-flash-free`,
+  `gemma-4-31b-it-free`, `nemotron-3-ultra-550b-a55b-free`.
+- Limits are per model: 5 req/min, 1M tokens/day, and 100 req/day (most `coding-*` routes) or 500 req/day
+  (e.g. `coding-minimax-m3-free`, `glm-4.7-flash-free`). Using several models multiplies the quota.
+- The other ~600 models are paid.
+
+### Routeway
+
+**Get a key**
+1. Sign up at <https://routeway.ai>.
+2. <https://routeway.ai/dashboard/keys> → create a key.
+
+**Use it**
+- Env: `ROUTEWAY_API_KEY`
+- Base URL: `https://api.routeway.ai/v1`
+- Only IDs ending in `:free` are free; the set rotates. On 31 Oct 2026: `muse-glimmer-30b:free`,
+  `minimax-m3.1-flash:free`, `deepseek-v4.1-flash:free` (timed out in testing), plus several
+  `gemma-4-26b-a4b-it-*:free` roleplay fine-tunes.
+- 200 free requests/day; the per-minute cap is 5 or 20 (Routeway's docs disagree).
+
+### Agnes AI
+
+**Get a key**
+1. Sign up at <https://platform.agnes-ai.com>.
+2. Create an API key in the dashboard.
+
+**Use it**
+- Env: `AGNES_API_KEY`
+- Base URL: `https://apihub.agnes-ai.com/v1`
+- Free models: `agnes-3.0-flash`, `agnes-2.5-flash`. The `-pro` models are paid.
+- The $0 price is a promotion with no announced end date. Per-minute limits are shown in the console.
+  Inputs may be used to improve Agnes models.
+
+### OpenTyphoon
+
+**Get a key**
+1. Sign up at <https://opentyphoon.ai>.
+2. <https://playground.opentyphoon.ai/api-key> → create a key.
+
+**Use it**
+- Env: `OPENTYPHOON_API_KEY`
+- Base URL: `https://api.opentyphoon.ai/v1`
+- Chat model: `typhoon-v2.5-30b-a3b-instruct` (a Thai fine-tune of Qwen3-30B-A3B; answers in English fine).
+- Free "research showcase": 200 req/min, 5 req/s, no daily cap. Usage data is collected to improve the model.
+
+### SEA-LION
+
+**Get a key**
+1. Sign in at <https://playground.sea-lion.ai>.
+2. <https://playground.sea-lion.ai/key-manager> → create a **Trial API Key**.
+
+**Use it**
+- Env: `SEALION_API_KEY`
+- Base URL: `https://api.sea-lion.ai/v1`
+- Models: `aisingapore/Qwen-SEA-LION-v4.5-27B-IT`, `aisingapore/Nemotron-SEA-LION-v4.8-120B-A12B`,
+  `aisingapore/Gemma-SEA-LION-v4-27B-IT`, `aisingapore/Llama-SEA-LION-v3-70B-IT`, plus embedding models.
+- 10 req/min, no published daily cap. Intended for prototyping.
+
+### LLMTR
+
+**Get a key**
+1. Sign up at <https://llmtr.com>.
+2. <https://llmtr.com/dashboard/api-keys> → create a key (`llmtr-...`).
+
+**Use it**
+- Env: `LLMTR_API_KEY`
+- Base URL: `https://llmtr.com/v1`
+- Free models (IDs ending in `-free`): `qwen/qwen3.8-27b-free`, `nvidia/nemotron-3.5-super-vl-free`,
+  `minimax/minimax-m3.1-flash-free`, … Some are dated previews that stop being free on a set day.
+- Each free model has its own daily allowance (e.g. 200K tokens/day on some previews). Some previews
+  need a previous top-up.
+
+### Token Harbor
+
+**Get a key**
+1. Sign up at <https://tokenharbor.ai> and **click the confirmation link in the email**. Until you do,
+   every request returns `email_verification_required`.
+2. <https://tokenharbor.ai/dashboard/api-keys> → create a key (`thk_live_...`).
+3. In the dashboard, turn on the free (`:free`) routes.
+
+**Use it**
+- Env: `TOKENHARBOR_API_KEY`
+- Base URL: `https://tokenharbor.ai/v1` (Anthropic-format base: `https://tokenharbor.ai`)
+- Free models: `deepseek-v4.1-flash:free`, `mimo-v2.6-flash:free` (the set rotates).
+- The allowance renews over a rolling 7 days; the dashboard shows usage as a percentage. Requests stop
+  when it runs out; you are never charged.
+
 ### SiliconFlow (international): one-time credit only
 
 Not a recurring free tier. The international site lists every model as paid and gives about **$1 of credit once**.
@@ -306,6 +411,6 @@ also get a one-time ¥16 voucher (valid 180 days).
 
 - Never enable billing on Google, Mistral or Cloudflare; that leaves the free tier.
 - One account per provider. Making accounts to multiply quota breaks the terms and gets you banned.
-- Gemini (free tier), Mistral Experiment and OpenRouter free models may train on your prompts. Don't send
-  private or work data.
+- Gemini (free tier), Mistral Experiment, OpenRouter free models, Agnes AI and OpenTyphoon may train on
+  your prompts. Don't send private or work data.
 - Keep keys in `.env` (git-ignored) and never paste them into commits or chats.

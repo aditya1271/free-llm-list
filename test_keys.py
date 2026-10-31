@@ -42,6 +42,13 @@ PROVIDERS = {
     "kilo":         ("https://api.kilo.ai/api/gateway", "KILO_API_KEY", "kilo-auto/free"),
     "pollinations": ("https://gen.pollinations.ai/v1", "POLLINATIONS_API_KEY", "openai/gpt-5.4-nano"),
     "llmkiwi":      ("https://api.llm.kiwi/v1", "LLMKIWI_API_KEY", "auto"),
+    "aihubmix":     ("https://aihubmix.com/v1", "AIHUBMIX_API_KEY", "coding-glm-5.3-free"),
+    "routeway":     ("https://api.routeway.ai/v1", "ROUTEWAY_API_KEY", "muse-glimmer-30b:free"),
+    "tokenharbor":  ("https://tokenharbor.ai/v1", "TOKENHARBOR_API_KEY", "deepseek-v4.1-flash:free"),
+    "opentyphoon":  ("https://api.opentyphoon.ai/v1", "OPENTYPHOON_API_KEY", "typhoon-v2.5-30b-a3b-instruct"),
+    "agnes":        ("https://apihub.agnes-ai.com/v1", "AGNES_API_KEY", "agnes-3.0-flash"),
+    "sealion":      ("https://api.sea-lion.ai/v1", "SEALION_API_KEY", "aisingapore/Qwen-SEA-LION-v4.5-27B-IT"),
+    "llmtr":        ("https://llmtr.com/v1", "LLMTR_API_KEY", "qwen/qwen3.8-27b-free"),
     # One-time signup credit only (HTTP 402 once it is spent); not a recurring free tier.
     "siliconflow":  ("https://api.siliconflow.com/v1", "SILICONFLOW_API_KEY", "Qwen/Qwen3-8B"),
 }
