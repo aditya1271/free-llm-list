@@ -29,7 +29,7 @@ E = os.environ.get
 PROVIDERS = {
     "sensenova":    ("https://token.sensenova.ai/v1", "SENSENOVA_API_KEY", "sensenova-6.8-flash-lite"),
     "gemini":       ("https://generativelanguage.googleapis.com/v1beta/openai", "GEMINI_API_KEY", "gemini-flash-lite-latest"),
-    "zai":          ("https://api.z.ai/api/paas/v4", "ZAI_API_KEY", "glm-4.7-flash"),
+    "zai":          ("https://api.z.ai/api/paas/v4", "ZAI_API_KEY", "glm-4.5-flash"),
     "cloudflare":   (f"https://api.cloudflare.com/client/v4/accounts/{E('CLOUDFLARE_ACCOUNT_ID')}/ai/v1",
                      "CLOUDFLARE_API_TOKEN", "@cf/meta/llama-3.3-70b-instruct-fp8-fast"),
     "groq":         ("https://api.groq.com/openai/v1", "GROQ_API_KEY", "openai/gpt-oss-20b"),

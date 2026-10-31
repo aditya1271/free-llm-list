@@ -13,7 +13,7 @@ All of them speak the **OpenAI chat-completions API**: change `base_url`, key an
 |---|---|---|---|---|
 | [SenseNova](#sensenova) | Points quota in console | `https://token.sensenova.ai/v1` | `sensenova-6.8-flash-lite` | Always reasons; 429 at ~16 parallel requests |
 | [Google Gemini](#google-gemini) | Per model RPM/RPD (≈15 RPM on Flash-Lite) | `https://generativelanguage.googleapis.com/v1beta/openai` | `gemini-flash-lite-latest` | Free-tier prompts may be used for training |
-| [Z.ai (GLM)](#zai-glm) | Free `*-flash` models | `https://api.z.ai/api/paas/v4` | `glm-4.7-flash`, `glm-4.5-flash` | `glm-5.3-flash` is **not** free; 4.7-flash sometimes "overloaded" |
+| [Z.ai (GLM)](#zai-glm) | Free `*-flash` models | `https://api.z.ai/api/paas/v4` | `glm-4.5-flash`, `glm-4.7-flash` | `glm-5.3-flash` is **not** free; 4.7-flash sometimes "overloaded" |
 | [Cloudflare Workers AI](#cloudflare-workers-ai) | 10,000 neurons / day | `https://api.cloudflare.com/client/v4/accounts/<ACCOUNT_ID>/ai/v1` | `@cf/meta/llama-3.3-70b-instruct-fp8-fast` | Needs account ID + token |
 | [Groq](#groq) | Per model, e.g. 1,000 req/day, 8K tokens/min | `https://api.groq.com/openai/v1` | `openai/gpt-oss-20b` | Very fast |
 | [OpenRouter](#openrouter) | 20 req/min, 50 req/day (1,000/day after a one-time $10 top-up) | `https://openrouter.ai/api/v1` | `openrouter/free`, `*:free` | Free models often rate-limited upstream |
