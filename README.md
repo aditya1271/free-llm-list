@@ -3,8 +3,7 @@
 LLM providers that give a **free API key with a recurring quota** (daily, hourly or monthly reset),
 **no credit card**. Every provider below was signed up for and **tested with a real request on
 31 Oct 2026** (`test_keys.py`). Z.ai and SambaNova pass on some runs and return a temporary 429
-("overloaded" / "high demand") on others. Token Harbor is listed but not yet confirmed (the key needs
-email verification first). Limits change often; check the provider's console before you depend on one.
+("overloaded" / "high demand") on others. Limits change often; check the provider's console before you depend on one.
 
 All of them speak the **OpenAI chat-completions API**: change `base_url`, key and model, nothing else.
 
@@ -32,7 +31,7 @@ All of them speak the **OpenAI chat-completions API**: change `base_url`, key an
 | [OpenTyphoon](#opentyphoon) | 200 req/min, no daily cap | `https://api.opentyphoon.ai/v1` | `typhoon-v2.5-30b-a3b-instruct` | Thai-tuned Qwen3-30B; English works too |
 | [SEA-LION](#sea-lion) | 10 req/min, no daily cap | `https://api.sea-lion.ai/v1` | `aisingapore/Qwen-SEA-LION-v4.5-27B-IT` | For prototyping |
 | [LLMTR](#llmtr) | Daily allowance per free model | `https://llmtr.com/v1` | `qwen/qwen3.8-27b-free` | Turkish gateway; dated free previews |
-| [Token Harbor](#token-harbor) | Rolling 7-day allowance on `:free` models | `https://tokenharbor.ai/v1` | `deepseek-v4.1-flash:free` | Verify email and enable free routes first (untested) |
+| [Token Harbor](#token-harbor) | Rolling 7-day allowance on `:free` models | `https://tokenharbor.ai/v1` | `deepseek-v4.1-flash:free` | Verify your email first, or every request fails |
 
 
 Tested but **not** a recurring free tier (kept for reference):
@@ -371,10 +370,12 @@ source keys.env.csh
 ### Token Harbor
 
 **Get a key**
-1. Sign up at <https://tokenharbor.ai> and **click the confirmation link in the email**. Until you do,
-   every request returns `email_verification_required`.
-2. <https://tokenharbor.ai/dashboard/api-keys> → create a key (`thk_live_...`).
-3. In the dashboard, turn on the free (`:free`) routes.
+1. Sign up at <https://tokenharbor.ai>.
+2. **Verify your email:** open the confirmation link Token Harbor emails you (check spam). If it never
+   arrived, request a new one at <https://tokenharbor.ai/dashboard>. Until you verify, every API request
+   fails with `email_verification_required`, even with a valid key.
+3. <https://tokenharbor.ai/dashboard/api-keys> → create a key (`thk_live_...`).
+4. In the dashboard, turn on the free (`:free`) routes.
 
 **Use it**
 - Env: `TOKENHARBOR_API_KEY`
